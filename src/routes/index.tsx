@@ -59,7 +59,7 @@ function Portfolio() {
       <Nav />
 
       {/* HERO */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center px-6 pt-20">
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden">
         <div className="glow-orb w-[500px] h-[500px] bg-primary -top-40 -left-40" />
         <div className="glow-orb w-[400px] h-[400px] bg-accent top-1/3 right-0" />
         <div className="glow-orb w-[350px] h-[350px] bg-secondary bottom-0 left-1/3" />
@@ -82,7 +82,7 @@ function Portfolio() {
 
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.05] mb-4">
               Hi, I'm <br />
-              <span className="text-gradient animate-gradient bg-gradient-hero">Priya Kumari</span>
+              <span className="text-gradient animate-gradient">Priya Kumari</span>
             </h1>
 
             <motion.p
@@ -324,7 +324,7 @@ function Portfolio() {
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ duration: 0.8 }}>
           <p className="text-sm uppercase tracking-widest text-primary mb-2">Let's Connect</p>
           <h2 className="text-5xl md:text-7xl font-bold mb-6">
-            Have a <span className="text-gradient bg-gradient-hero animate-gradient">project</span> in mind?
+            Have a <span className="text-gradient animate-gradient">project</span> in mind?
           </h2>
           <p className="text-lg text-muted-foreground mb-10 max-w-xl mx-auto">
             I'm always open to discussing new opportunities, collaborations, or just a good chat about code.
@@ -341,7 +341,7 @@ function Portfolio() {
       </Section>
 
       <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-        © 2026 Priya Kumari · Crafted with ❤️
+        Priya Kumari · Crafted with ❤️
       </footer>
     </div>
   );
@@ -370,7 +370,7 @@ function Nav() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all ${scrolled ? "glass py-3" : "py-5"}`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <a href="#" className="font-display text-xl font-bold text-gradient bg-gradient-hero">PK.</a>
+        <a href="#" className="font-display text-xl font-bold text-gradient">PK</a>
         <div className="hidden md:flex gap-8 text-sm">
           {links.map((l) => (
             <a key={l.href} href={l.href} className="text-muted-foreground hover:text-foreground transition-colors">
