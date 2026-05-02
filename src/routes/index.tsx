@@ -59,7 +59,7 @@ function Portfolio() {
       <Nav />
 
       {/* HERO */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center px-6 pt-20">
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden">
         <div className="glow-orb w-[500px] h-[500px] bg-primary -top-40 -left-40" />
         <div className="glow-orb w-[400px] h-[400px] bg-accent top-1/3 right-0" />
         <div className="glow-orb w-[350px] h-[350px] bg-secondary bottom-0 left-1/3" />
