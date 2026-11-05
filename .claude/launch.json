@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--", "--port", "8080"],
       "port": 8080
+    },
+    {
+      "name": "static-dist",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4173", "--directory", "dist/client"],
+      "port": 4173
     }
   ]
 }
