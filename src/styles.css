@@ -30,11 +30,13 @@
   --color-ring: var(--ring);
   --font-display: "Space Grotesk", sans-serif;
   --font-sans: "Inter", sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 :root {
   --radius: 0.875rem;
-  --background: oklch(0.13 0.03 280);
+  --background: oklch(0.12 0.028 284);
   --foreground: oklch(0.97 0.01 280);
   --card: oklch(0.18 0.04 280);
   --card-foreground: oklch(0.97 0.01 280);
@@ -91,6 +93,28 @@
     font-family: var(--font-display);
     letter-spacing: -0.02em;
   }
+
+  ::selection {
+    background: oklch(0.72 0.22 320 / 45%);
+    color: white;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-background); }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.35 0.08 300);
+    border-radius: 9999px;
+    border: 3px solid var(--color-background);
+  }
+
+  /* Native cursor is replaced by the custom one on fine pointers */
+  .has-cursor, .has-cursor * { cursor: none !important; }
 }
 
 @layer utilities {
@@ -152,6 +176,94 @@
   50% { background-position: 100% 50%; }
 }
 
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.04); }
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes scroll-cue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+@keyframes shine {
+  0% { transform: translateX(-120%) skewX(-20deg); }
+  60%, 100% { transform: translateX(220%) skewX(-20deg); }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
 .animate-float { animation: float 6s ease-in-out infinite; }
 .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+.animate-pulse-soft { animation: pulse-soft 6s ease-in-out infinite; }
 .animate-gradient { background-size: 200% 200%; animation: gradient-shift 8s ease infinite; }
+.animate-spin-slow { animation: spin-slow 14s linear infinite; }
+.animate-spin-slow-reverse { animation: spin-slow 9s linear infinite reverse; }
+
+.marquee { animation: marquee 45s linear infinite; }
+.marquee-reverse { animation-direction: reverse; }
+.marquee:hover { animation-play-state: paused; }
+
+.scroll-cue { animation: scroll-cue 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+
+.shine {
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.45), transparent);
+  animation: shine 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.caret {
+  display: inline-block;
+  width: 7px;
+  height: 1.1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--color-primary);
+  animation: blink 1s steps(1) infinite;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, oklch(1 0 0 / 4%) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(1 0 0 / 4%) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+}
+
+/* Shows only a 1px ring of the element's background — used for the spotlight border */
+.mask-border {
+  padding: 1px;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-float, .animate-pulse-glow, .animate-pulse-soft, .animate-gradient,
+  .animate-spin-slow, .animate-spin-slow-reverse, .marquee, .scroll-cue, .shine, .caret {
+    animation: none !important;
+  }
+}
